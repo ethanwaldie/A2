@@ -160,7 +160,7 @@ def build_semantic_descriptors(sentences):
                     if word not in tmp.keys():
                         tmp[word] = 1
                         
-                    #Updates the frequency of the word in the sentence
+                    #Creates
                     else:
                         tmp[word] += 1
                         
@@ -238,29 +238,25 @@ def run_similarity_test(filename, semantic_descriptors):
     filename -- text file
     Semantic_descriptor -- dictionary
     '''
-    testcases = [] #Empty list stores the TOFEL Questions with answer
-    correct = 0 #number of correct answers
-    trials = 0 #number of trials run
-    file = open(filename) #Open the text file with the TOFEL questions
-    line_strings = file.readlines() #list of all lines as elements
-    file.close() #Close file being read
+    testcases = [] #Empty list stores the 
+    correct = 0
+    trials = 0
+    file = open(filename)
+    line_strings = file.readlines()
+    file.close()
     
     
     for line in  line_strings:
-        #appends testcases with the a list of all the words in each line
         testcases.append(line.split())
     
     for test in testcases:
-        choices = [] #Stores choices in each question
-        
-        #since first two elements are the question word and the answer
-        #make choices any entry after those two elements
+        choices = []
         for i in range(2, len(test)):
             choices.append(test[i])
         
-        #
         if test[0] in semantic_descriptors.keys():
             synonym = most_similar_word(test[0], choices, semantic_descriptors)
+            print(synonym)
             if synonym == test[1]:
                 correct += 1
         trials +=1

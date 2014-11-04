@@ -268,5 +268,15 @@ if __name__ == '__main__':
     
     print (test == get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
     
+    #get_sentance_lists_from_files
+    
+    print(test == get_sentence_lists_from_files("get_sentence_lists_test1.txt"))
+    
+    
+    #-----------------------------------------------------------
+    # Testing Build Semantic descriptors
+    
+    
+    
     
     

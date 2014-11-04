@@ -171,10 +171,19 @@ def most_similar_word(word, choices, semantic_descriptors):
 
     for choice in choices:
         #appends the cosine similarity of each respective choice
-        sim.append(cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice]))
+        if word in semantic_descriptors.keys() and choice in semantic_descriptors.keys():
+            sim.append(cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice]))
+        else:
+            sim.append(-1)
+    
+    if -1 in sim:
+        return "Undefined, word not in text"
+    
     
     #Set variable maxrun to store the highest similarity
     maxrun = 0
+    
+    pos = 0
     for i in range(len(sim)): 
         if sim[i] > maxrun: #
             maxrun = sim[i] #update the max similarity
@@ -231,7 +240,7 @@ def text_to_words(text):
     return open(text).read().split()
 
 def remove(word):
-    return word.lower().strip("?,.!;:+-/")
+    return word.lower().strip("?,.!;:+-/*--")
 
 def charactercheck(word):
     return ("." in word or "!" in word or "?" in word)

@@ -1,6 +1,8 @@
 '''Semantic Similarity: 
-For a given text file, returns the most similiar word to the word that is 
-inputed
+For a given text file, builds semantic descriptors for all words in a given
+text file. Using this semantic descriptor, returns most similar word to the
+each word in question and checks whether it is the right answer, returning 
+the percentage of questions answered correctly.
 
 Authors: Andrej Janda, Ethan Waldie. Last modified: Nov. 1, 2014.
 '''
@@ -43,15 +45,17 @@ def get_sentence_lists(text):
     text -- list
     """
     
-    # This empty list will store the sentances
+    #Empty list will store the sentances
     sentances = []
     
-    #This will store the location in the text of the last sentance
+    #Store the location in the text of the last sentance
     lastperiod = 0
     
-    # Go through the entire list of words
+    #Go through the entire list of words
     for i in range(len(text)):
-        #if the word we are on contains a period, remeber we have not stripped punctuation
+        
+        #if the word contains a period, remember punctuation was not 
+        #stripped
         if charactercheck(text[i]):
             
             #temporay list
@@ -59,27 +63,42 @@ def get_sentence_lists(text):
             
             #If we are on the first sentance
             if lastperiod == 0:
-                # Add words from the first word to the end of this #first sentance 
+                
+                #Add words from the first word to the end of this 
+                #first sentance 
                 for x in range (i+1):
                     tmp.append(remove(text[x]))
             else:
                 #If not first sentance, Add words from the last sentance
                 #period to the end of this sentance to the tmp list
+                
                 for u in range(lastperiod + 1, i+1):
                     tmp.append(remove(text[u]))
+                    
             #append the tmp list to the sentances list
             sentances.append(tmp)
             
             #set this period to be the last known period.
             lastperiod = i
-        
+    
+    #Returns the new list of all the sentences
     return sentances
                 
         
 
 
 def get_sentence_lists_from_files(filenames):
+    '''Returns a list of all the sentences with the individual words as
+    strings in the elements of the list.
+    
+    Arguements:
+    filenames -- text file
+    '''
+    #Open the file as a list of all the words as strings as its elements in
+    #the list. Call function text_to_words(filenames):
     text = text_to_words(filenames)
+    
+    #turn the list into a list of all the sentences as the elements
     return get_sentence_lists(text)
 
 
@@ -90,12 +109,16 @@ def build_semantic_descriptors(sentences):
     Arguements
     sentences -- list
     '''
-    #set new variable words to be the dictionary with every word in sentences
+    
+    #set new variable "d" to be the dictionary with every word in sentences
     #as a key and an emtpy dictionary as it's value
+    #calls words_in_text(): to create this dictionary
+    
     d = words_in_text(sentences)
     
     #For all keys in the dictionary of all the words in sentences, finds
     #the number of times each word appears in the same sentence as the keyword
+<<<<<<< HEAD
     tmp = {}
     
     one_p = len(d.keys())//100
@@ -109,14 +132,41 @@ def build_semantic_descriptors(sentences):
         #create tempary dictionary to hold the values of frequency of everyword
         #so that it can be added to it's appropriate key in the dictionary
 
+=======
+    
+    for keyword in d.keys():
+        
+        #create tempary dictionary to hold the values of frequency of 
+        #everyword so that it can be added to its appropriate key in the 
+        #dictionary
+        tmp = {}
+        
+        #This section of for-loops goes into each word in each sentence and
+        #adds the frequency of the the words in each sentence into the 
+        #dictionary for each word
+        
+        #For every sentence in sentences
+>>>>>>> origin/master
         for sentence in sentences:
+            
+            #for every keyword in each sentence
             if keyword in sentence:
+                
+                #for every word in the sentence, add the frequency of that
+                #word in that sentence to the dictionary for the keyword
                 for word in sentence:
+                    
+                    #creates an input for that word if it does not exist
                     if word not in tmp.keys():
                         tmp[word] = 1
+                        
+                    #Creates
                     else:
                         tmp[word] += 1
+                        
+                #deletes the word iself from the list
                 del tmp[keyword]
+<<<<<<< HEAD
         d[keyword] = tmp
         count += 1
         if count == one_p:
@@ -127,6 +177,13 @@ def build_semantic_descriptors(sentences):
         
         
     return d
+=======
+                
+        d[keyword] = tmp #Set the dictionary at that word equal to the
+                         #semantic descriptor for that keyword
+        
+    return d  #Return the semantic descriptor
+>>>>>>> origin/master
     
         
 def most_similar_word(word, choices, semantic_descriptors):
@@ -138,15 +195,22 @@ def most_similar_word(word, choices, semantic_descriptors):
     semantic_descriptors -- dictionary
     '''
     
+    #Create empty list to store the cosine similarty for each choice
     sim = []
 
     for choice in choices:
+<<<<<<< HEAD
         if word in semantic_descriptors.keys() and choice in semantic_descriptors.keys():
             sim.append(cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice]))
         else:
             sim.append(-1)
     
+=======
+        #appends the cosine similarity of each respective choice
+        sim.append(cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice]))
+>>>>>>> origin/master
     
+    #Set variable maxrun to store the highest similarity
     maxrun = 0
     
     pos = 0
@@ -156,14 +220,25 @@ def most_similar_word(word, choices, semantic_descriptors):
             maxrun = sim[i]
             pos = i
     
+<<<<<<< HEAD
     if -1 in sim:
         return "Not Found"
     
     return choices[pos]
+=======
+    return choices[pos] #return the highest similarity
+>>>>>>> origin/master
 
 
 def run_similarity_test(filename, semantic_descriptors):
-    testcases = []
+    '''Retruns the percentage that the program guess the answers to the 
+    TOFEL questions corretly.
+    
+    Arguements:
+    filename -- text file
+    Semantic_descriptor -- dictionary
+    '''
+    testcases = [] #Empty list stores the 
     correct = 0
     trials = 0
     file = open(filename)

@@ -121,29 +121,18 @@ def most_similar_word(word, choices, semantic_descriptors):
     semantic_descriptors -- dictionary
     '''
     
-    sim = {}
+    sim = []
 
     for choice in choices:
-        sim[choice] = cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice])
-    """       
-    inv_sim = {}
-    for k in sim:
-        if sim[k] not in inv_sim.keys():
-            inv_sim[sim[k]] = [sim[k]]
-        else:
-            inv_sim[sim[k]].append(sim[k])
-    max_k = 0       
-    for k in inv_sim:
-        if k > max_k:
-            max_k = k
+        sim.append(cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice]))
     
-    for word in inv_sim[max_k]:
-        for choice in choices:
-            if word == choice:
-                return word
-    """
-    print("Error")    
-    return "ERROR"
+    maxrun = 0
+    for i in range(len(sim)):
+        if sim[i] > maxrun:
+            maxrun = sim[i]
+            pos = i
+        
+    return choices[pos]
 
 
 def run_similarity_test(filename, semantic_descriptors):

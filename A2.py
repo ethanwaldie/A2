@@ -132,6 +132,7 @@ def most_similar_word(word, choices, semantic_descriptors):
             maxrun = sim[i]
             pos = i
         
+        print("ANDREJ EATS MOMKEY NUTS")
     return choices[pos]
 
 

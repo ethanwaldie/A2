@@ -171,25 +171,30 @@ def most_similar_word(word, choices, semantic_descriptors):
 
     for choice in choices:
         #appends the cosine similarity of each respective choice
-        if word in semantic_descriptors.keys() and choice in semantic_descriptors.keys():
-            sim.append(cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice]))
+        #If the 
+        if word in semantic_descriptors.keys() and choice in \
+           semantic_descriptors.keys():
+            
+            sim.append(cosine_similarity(semantic_descriptors[word],\
+            semantic_descriptors[choice]))
         else:
-            sim.append(-1)
+            sim.append(-1) #If the word is not in the semantic descrpiptor
+                           #return -1 so that it does not get
     
     if -1 in sim:
-        return "Undefined, word not in text"
+        return "Word not in text"
     
     
     #Set variable maxrun to store the highest similarity
     maxrun = 0
     
-    pos = 0
+    pos = 0 #Stores the position of the word with the highest similarity
     for i in range(len(sim)): 
-        if sim[i] > maxrun: #
+        if sim[i] > maxrun: #checks if the similarity is a max
             maxrun = sim[i] #update the max similarity
-            pos = i  #store the position of the word with highest similarity
+            pos = i  #update the position of the highest similarity
     
-    return choices[pos] #return the highest similarity
+    return choices[pos] #return the word with the highest similarity
 
 
 def run_similarity_test(filename, semantic_descriptors):
@@ -200,12 +205,12 @@ def run_similarity_test(filename, semantic_descriptors):
     filename -- text file
     Semantic_descriptor -- dictionary
     '''
-    testcases = [] #Empty list stores the TOFEL Questions with answer
-    correct = 0 #number of correct answers
-    trials = 0 #number of trials run
+    testcases = []     #Empty list stores the TOFEL Questions with answer
+    correct = 0        #number of correct answers
+    trials = 0         #number of trials run
     file = open(filename) #Open the text file with the TOFEL questions
     line_strings = file.readlines() #list of all lines as elements
-    file.close() #Close file being read
+    file.close()       #Close file being read
     
     
     for line in  line_strings:
@@ -222,24 +227,37 @@ def run_similarity_test(filename, semantic_descriptors):
         
         #Check if the question word is in the semantic descriptor
         if test[0] in semantic_descriptors.keys():
+            
             #check which word is the most similar
             synonym = most_similar_word(test[0], choices, semantic_descriptors)
             if synonym == test[1]:
-                #If the word
+                
+                #If the program guessed correctly, update number of correct
+                #guesses
                 correct += 1
-        trials +=1
+        
+        trials +=1 #Updates the number of trials run
     
-    
-    percentage = (correct/trials)*100
+    #Calculates the percentage that the program guesses correctly
+    percentage = (correct/trials)*100 
     
     return percentage   
     
 
 
 def text_to_words(text):
+    '''Returns a list with all words as strings in the list. Opens a given 
+    file, reads it and splits it up into indivitual words
+    as stings as elements in the list.
+    
+    Arguements:
+    text -- text file
+    '''
     return open(text).read().split()
 
 def remove(word):
+    '''Removes the 
+    '''
     return word.lower().strip("?,.!;:+-/*--")
 
 def charactercheck(word):
@@ -256,27 +274,46 @@ def words_in_text(sentances):
     
 
 if __name__ == '__main__':
+
+    Test_n = 1
+    #Testing strategy:
+    #Test all boundry cases for each function that would return
+    #a list with incorrect lists
     
-    #Boundry cases
-    
-    #get_sentance_lists  
+
+
+
+#############################################################################
+#Boundary cases for get_sentences_from_files()
+
+
+    #Test-list with empty string as one of the elements
     test = [['this', 'file', 'contains', 'testing', 'cases', 'for', 'get', 
-            'sentance', 'lists'], ['hello'], ['my', 'name', 'is', 'ethan'], 
+             'sentance', 'lists'], ['hello'], ['my', 'name', 'is', 'ethan'], 
             ['testing', 'functions'], [''], ['is', 'a', 'good'], ['job'], 
-            ['and'], ['must'], ['be', 'done'], ['to', 'get'], 
-            ['a', 'good'], ['mark'], ['in', 'csc']]
+            ['and'], ['must'], ['be', 'done'], ['to', 'get'], ['a', 'good'], [
+            'mark'], ['in', 'csc']]
     
+    # TEST 1: 
     print (test == get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
     
-    #get_sentance_lists_from_files
-    
+    expected = []
+    print ('test #' +str(test_n) + ':', res == expected)
+    test_n += 1
+    reset()     
+        
+        #get_sentance_lists_from_files
+    # TEST 2: 
     print(test == get_sentence_lists_from_files("get_sentence_lists_test1.txt"))
-    
-    
-    #-----------------------------------------------------------
-    # Testing Build Semantic descriptors
-    
-    
-    
-    
-    
+        
+        
+        
+
+
+
+
+
+############################################################################
+#Tests for build_semantic_descriptors()
+
+

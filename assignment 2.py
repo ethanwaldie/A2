@@ -133,7 +133,7 @@ def build_semantic_descriptors(sentences):
         #For every sentence in sentences
         for sentence in sentences:
             
-            #for every keyword in each sentence
+            #if keyword in each sentence
             if keyword in sentence:
                 
                 #for every word in the sentence, add the frequency of that
@@ -256,9 +256,17 @@ def words_in_text(sentances):
     
 
 if __name__ == '__main__':
-    print(get_sentence_lists_from_files("testtext.txt"))
-    dick = get_sentence_lists_from_files('testtext.txt')
-    print(words_in_text(dick))
-    print(build_semantic_descriptors(dick))
-    sem_des = build_semantic_descriptors(dick)
-    print (run_similarity_test("testingdata.txt", sem_des))
+    
+    #Boundry cases
+    
+    #get_sentance_lists  
+    test = [['this', 'file', 'contains', 'testing', 'cases', 'for', 'get', 
+            'sentance', 'lists'], ['hello'], ['my', 'name', 'is', 'ethan'], 
+            ['testing', 'functions'], [''], ['is', 'a', 'good'], ['job'], 
+            ['and'], ['must'], ['be', 'done'], ['to', 'get'], 
+            ['a', 'good'], ['mark'], ['in', 'csc']]
+    
+    print (test == get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
+    
+    
+    

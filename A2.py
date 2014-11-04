@@ -96,10 +96,19 @@ def build_semantic_descriptors(sentences):
     
     #For all keys in the dictionary of all the words in sentences, finds
     #the number of times each word appears in the same sentence as the keyword
+    tmp = {}
+    
+    one_p = len(d.keys())//100
+    print(one_p)
+    
+    count = 0
+    
+    completed = 0
+     
     for keyword in d.keys():
         #create tempary dictionary to hold the values of frequency of everyword
         #so that it can be added to it's appropriate key in the dictionary
-        tmp = {}
+
         for sentence in sentences:
             if keyword in sentence:
                 for word in sentence:
@@ -109,6 +118,14 @@ def build_semantic_descriptors(sentences):
                         tmp[word] += 1
                 del tmp[keyword]
         d[keyword] = tmp
+        count += 1
+        if count == one_p:
+            count = 0
+            completed += 1
+            print(completed, " %")
+            
+        
+        
     return d
     
         
@@ -124,14 +141,24 @@ def most_similar_word(word, choices, semantic_descriptors):
     sim = []
 
     for choice in choices:
-        sim.append(cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice]))
+        if word in semantic_descriptors.keys() and choice in semantic_descriptors.keys():
+            sim.append(cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice]))
+        else:
+            sim.append(-1)
+    
     
     maxrun = 0
+    
+    pos = 0
+    
     for i in range(len(sim)):
         if sim[i] > maxrun:
             maxrun = sim[i]
             pos = i
-        
+    
+    if -1 in sim:
+        return "Not Found"
+    
     return choices[pos]
 
 
@@ -170,12 +197,13 @@ def text_to_words(text):
     return open(text).read().split()
 
 def remove(word):
-    return word.lower().strip("?,.!;:+-/")
+    return word.lower().strip("?,.!;:+-/*--")
 
 def charactercheck(word):
     return ("." in word or "!" in word or "?" in word)
 
 def words_in_text(sentances):
+
     words = {}
     
     for sentance in sentances:
@@ -186,9 +214,10 @@ def words_in_text(sentances):
     
 
 if __name__ == '__main__':
-    print(get_sentence_lists_from_files("testtext.txt"))
-    dick = get_sentence_lists_from_files('testtext.txt')
-    print(words_in_text(dick))
-    print(build_semantic_descriptors(dick))
+    dick = get_sentence_lists_from_files('War and Peace.txt')
+    
+    print(1)
     sem_des = build_semantic_descriptors(dick)
+    
+    print(2)
     print (run_similarity_test("testingdata.txt", sem_des))

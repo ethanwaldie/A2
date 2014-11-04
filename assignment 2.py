@@ -118,21 +118,6 @@ def build_semantic_descriptors(sentences):
     
     #For all keys in the dictionary of all the words in sentences, finds
     #the number of times each word appears in the same sentence as the keyword
-<<<<<<< HEAD
-    tmp = {}
-    
-    one_p = len(d.keys())//100
-    print(one_p)
-    
-    count = 0
-    
-    completed = 0
-     
-    for keyword in d.keys():
-        #create tempary dictionary to hold the values of frequency of everyword
-        #so that it can be added to it's appropriate key in the dictionary
-
-=======
     
     for keyword in d.keys():
         
@@ -146,7 +131,6 @@ def build_semantic_descriptors(sentences):
         #dictionary for each word
         
         #For every sentence in sentences
->>>>>>> origin/master
         for sentence in sentences:
             
             #for every keyword in each sentence
@@ -166,24 +150,11 @@ def build_semantic_descriptors(sentences):
                         
                 #deletes the word iself from the list
                 del tmp[keyword]
-<<<<<<< HEAD
-        d[keyword] = tmp
-        count += 1
-        if count == one_p:
-            count = 0
-            completed += 1
-            print(completed, " %")
-            
-        
-        
-    return d
-=======
                 
         d[keyword] = tmp #Set the dictionary at that word equal to the
                          #semantic descriptor for that keyword
         
     return d  #Return the semantic descriptor
->>>>>>> origin/master
     
         
 def most_similar_word(word, choices, semantic_descriptors):
@@ -199,35 +170,17 @@ def most_similar_word(word, choices, semantic_descriptors):
     sim = []
 
     for choice in choices:
-<<<<<<< HEAD
-        if word in semantic_descriptors.keys() and choice in semantic_descriptors.keys():
-            sim.append(cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice]))
-        else:
-            sim.append(-1)
-    
-=======
         #appends the cosine similarity of each respective choice
         sim.append(cosine_similarity(semantic_descriptors[word], semantic_descriptors[choice]))
->>>>>>> origin/master
     
     #Set variable maxrun to store the highest similarity
     maxrun = 0
+    for i in range(len(sim)): 
+        if sim[i] > maxrun: #
+            maxrun = sim[i] #update the max similarity
+            pos = i  #store the position of the word with highest similarity
     
-    pos = 0
-    
-    for i in range(len(sim)):
-        if sim[i] > maxrun:
-            maxrun = sim[i]
-            pos = i
-    
-<<<<<<< HEAD
-    if -1 in sim:
-        return "Not Found"
-    
-    return choices[pos]
-=======
     return choices[pos] #return the highest similarity
->>>>>>> origin/master
 
 
 def run_similarity_test(filename, semantic_descriptors):
@@ -258,10 +211,12 @@ def run_similarity_test(filename, semantic_descriptors):
         for i in range(2, len(test)):
             choices.append(test[i])
         
-        #
+        #Check if the question word is in the semantic descriptor
         if test[0] in semantic_descriptors.keys():
+            #check which word is the most similar
             synonym = most_similar_word(test[0], choices, semantic_descriptors)
             if synonym == test[1]:
+                #If the word
                 correct += 1
         trials +=1
     
@@ -276,13 +231,12 @@ def text_to_words(text):
     return open(text).read().split()
 
 def remove(word):
-    return word.lower().strip("?,.!;:+-/*--")
+    return word.lower().strip("?,.!;:+-/")
 
 def charactercheck(word):
     return ("." in word or "!" in word or "?" in word)
 
 def words_in_text(sentances):
-
     words = {}
     
     for sentance in sentances:
@@ -293,10 +247,9 @@ def words_in_text(sentances):
     
 
 if __name__ == '__main__':
-    dick = get_sentence_lists_from_files('War and Peace.txt')
-    
-    print(1)
+    print(get_sentence_lists_from_files("testtext.txt"))
+    dick = get_sentence_lists_from_files('testtext.txt')
+    print(words_in_text(dick))
+    print(build_semantic_descriptors(dick))
     sem_des = build_semantic_descriptors(dick)
-    
-    print(2)
     print (run_similarity_test("testingdata.txt", sem_des))

@@ -345,14 +345,6 @@ if __name__ == '__main__':
     print('TEST', test_n, ": True")
     test_n += 1        
 
-   
-
-    
-<<<<<<< HEAD
-    print(text == get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
-=======
-    
->>>>>>> origin/master
 #############################################################################
 #Test cases for Build_Semantic_descriptors
 
@@ -412,15 +404,3 @@ if __name__ == '__main__':
     
     
     
-    
-                    
-                    
-<<<<<<< HEAD
-        
-=======
-
-############################################################################
-#Tests for build_semantic_descriptors()
->>>>>>> origin/master
-
-

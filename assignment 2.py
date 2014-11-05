@@ -36,7 +36,7 @@ def cosine_similarity(vec1, vec2):
 
 
 def get_sentence_lists(text):
-    """ Returns a new list of every sentence as an element in that list. Each 
+    """ Return a new list of every sentence as an element in that list. Each 
     sentence element is split up into its individual words as individual
     strings. Opens file and splits it up into a list of all sentences as
     elements in that list.
@@ -44,24 +44,28 @@ def get_sentence_lists(text):
     Arguments:
     text -- list
     """
+   
+    sentances = [] #Empty list will store the sentances
     
-    #Empty list will store the sentances
-    sentances = []
     
-    #Store the location in the text of the last sentance
-    lastperiod = 0
+    lastperiod = 0 #Store the location in the text of the last sentance
     
-    #Go through the entire list of words
     for i in range(len(text)):
         
         #if the word contains a period, remember punctuation was not 
         #stripped
         if charactercheck(text[i]):
+<<<<<<< HEAD
             #temporay list
             tmp = []
+=======
             
-            #If we are on the first sentance
-            if lastperiod == 0:
+>>>>>>> origin/master
+            
+            tmp = [] #temporay list to store each sentence
+            
+            
+            if lastperiod == 0: #If first sentance
                 
                 #Add words from the first word to the end of this 
                 #first sentance 
@@ -102,7 +106,7 @@ def get_sentence_lists(text):
 
 
 def get_sentence_lists_from_files(filenames):
-    '''Returns a list of all the sentences with the individual words as
+    '''Return a list of all the sentences with the individual words as
     strings in the elements of the list.
     
     Arguements:
@@ -117,7 +121,7 @@ def get_sentence_lists_from_files(filenames):
 
 
 def build_semantic_descriptors(sentences):
-    '''Returns a dictionary with the semantic descriptor of everyword. This
+    '''Return a dictionary with the semantic descriptor of everyword. This
     semantic descriptor is stored as a value for the keyword in the dictonary
     
     Arguements
@@ -172,7 +176,7 @@ def build_semantic_descriptors(sentences):
     
         
 def most_similar_word(word, choices, semantic_descriptors):
-    '''Returns the most smiliar word to the keyword
+    '''Return the most smiliar word to the keyword
     
     Arguements:
     word -- string
@@ -211,7 +215,7 @@ def most_similar_word(word, choices, semantic_descriptors):
 
 
 def run_similarity_test(filename, semantic_descriptors):
-    '''Retruns the percentage that the program guess the answers to the 
+    '''Retrun the percentage that the program guess the answers to the 
     TOFEL questions corretly.
     
     Arguements:
@@ -231,7 +235,7 @@ def run_similarity_test(filename, semantic_descriptors):
    
     
     for line in  line_strings:
-        #appends testcases with the a list of all the words in each line
+        #appends testcases with a list of all the words in each line
         testcases.append(line.split())
     
     for test in testcases:
@@ -256,15 +260,14 @@ def run_similarity_test(filename, semantic_descriptors):
         trials +=1 #Updates the number of trials run
     
     #Calculates the percentage that the program guesses correctly
-    percentage = (correct/trials)*100 
+    if trials != 0: # cannot divide by zero if trials is not updated
+        percentage = (correct/trials)*100 
     
     return percentage   
     
 
 def text_to_words(text):
-    '''Returns a list with all words as strings in the list. Opens a given 
-    file, reads it and splits it up into indivitual words
-    as stings as elements in the list.
+    '''Return a list from a file with all words as strings in the list. 
     
     Arguements:
     text -- text file
@@ -272,7 +275,7 @@ def text_to_words(text):
     return open(text).read().split()
 
 def remove(word):
-    '''Returns the word without any extra characters
+    '''Return the word without any extra characters
     
     Arguemnts:
     word -- string
@@ -280,7 +283,7 @@ def remove(word):
     return word.lower().strip("?,.!;:+-/*--")
 
 def charactercheck(word):
-    '''Returns a booliean. True if ".", "!", "?" are in the word and 
+    '''Return a booliean. True if ".", "!", "?" are in the word and 
     false otherwise
     
     Arguements:
@@ -289,7 +292,7 @@ def charactercheck(word):
     return ("." in word or "!" in word or "?" in word)
 
 def words_in_text(sentances):
-    '''Returns a dictionary with all the words in the text as keys and 
+    '''Return a dictionary with all the words in the text as keys and 
     an empty dictionary as their values
     
     Arguments:
@@ -358,6 +361,7 @@ if __name__ == '__main__':
                 if '' == word:
                     print('TEST', test_n, ": False")
                     break
+                
     print('TEST', test_n, ": True")
     test_n += 1
     
@@ -437,9 +441,17 @@ if __name__ == '__main__':
     #print if res contains any False elements                     
     print ('TEST', test_n, ':', False not in res.items())
     
+<<<<<<< HEAD
     ###########################################################################
     #Testing most_simlar_word()   
     print("testing most_similiar_word()")
+=======
+    
+
+##########################################################################
+#Testing most_simlar_word()   
+    print("\ntesting most_similiar_word()")
+>>>>>>> origin/master
     
     sem_des = {"a":{"b":1, "c":1, "d":1, "e":1, "f":1 },
                "b":{"a":0, "c":1, "d":2, "e":3, "f":1 },
@@ -477,20 +489,36 @@ if __name__ == '__main__':
 #Tested using a testing file "run_similarity_test_test1.txt" with all test
 #cases found inside
 
-    print("\ntesting build_semantic_descpriptors()")
+    print("\ntesting run_similarity_test()")
     test_n = 1
-    
     
     sem_des = build_semantic_descriptors(text)
     
     #-------------------------------------------------------------------------
-    #TEST 1: Test if an error will reult if the answer is not in the choices
-    print ('TEST', test_n, ': True')
+    #TEST 1: check if the choices do not contain the answer or if no choices
+    #are given or if the question is given in other characters, whether the
+    #program will return 0 percentage correct
+    
+    check = run_similarity_test('run_similarity_test_test1.txt', sem_des)
+    if check == 0:
+        test_boolean = True
+    else:
+        test_boolean = False
+    print ('TEST', test_n, ':', test_boolean)
     test_n += 1
     
     #-------------------------------------------------------------------------
     #TEST 2: Check whether numbers in the file will cause an error
-    print ('TEST', test_n, ': True')
+    check = run_similarity_test('run_similarity_test_test1.txt', sem_des)
+    
+    #Should give zero percent correct since the semantic descriptor has no
+    #data for numbers
+    if check == 0:
+        test_boolean = True
+    else:
+        test_boolean = False    
+    
+    print ('TEST', test_n, ':', test_boolean)
     test_n += 1    
     
     
@@ -500,20 +528,16 @@ if __name__ == '__main__':
     #Should return a value of zero as the percentage
     
     sem_des2 = {}
+<<<<<<< HEAD
+=======
+           
+>>>>>>> origin/master
     test = run_similarity_test('run_similarity_test_test1.txt', sem_des2)
     if test == 0:
         test_boolean = True
     else:
         test_boolean = False
     print ('TEST', test_n, ':', test_boolean)
-  
-
-
-    #-------------------------------------------------------------------------
-    #TEST 4: Checks to see if there is no input in one of the lines in the 
-    #text file, whether it will return an error or not. It should not return
-    #an error and just skip over the line
-
 
 
 

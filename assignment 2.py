@@ -282,8 +282,10 @@ if __name__ == '__main__':
     #Test all boundry cases for each function that would return
     #a list with incorrect lists
     
-<<<<<<< HEAD
-    #Boundry cases
+    
+#############################################################################
+#Boundary cases for get_sentences_from_files()
+
     
     #get_sentance_lists  
     test =     [['this', 'file', 'contains', 'testing', 'cases', 'for', 
@@ -295,39 +297,9 @@ if __name__ == '__main__':
 
     
     print(get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
-=======
-
-
-
 #############################################################################
-#Boundary cases for get_sentences_from_files()
+#Test cases for Build_Semantic_descriptors
 
-
-    #Test-list with empty string as one of the elements
-    test = [['this', 'file', 'contains', 'testing', 'cases', 'for', 'get', 
-             'sentance', 'lists'], ['hello'], ['my', 'name', 'is', 'ethan'], 
-            ['testing', 'functions'], [''], ['is', 'a', 'good'], ['job'], 
-            ['and'], ['must'], ['be', 'done'], ['to', 'get'], ['a', 'good'], [
-            'mark'], ['in', 'csc']]
->>>>>>> origin/master
-    
-    # TEST 1: 
-    print (test == get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
-    
-    expected = []
-    print ('test #' +str(test_n) + ':', res == expected)
-    test_n += 1
-    reset()     
-        
-        #get_sentance_lists_from_files
-    # TEST 2: 
-    print(test == get_sentence_lists_from_files("get_sentence_lists_test1.txt"))
-<<<<<<< HEAD
-    
-    
-    #-----------------------------------------------------------
-    # Testing Build Semantic descriptors
-    
     words_in_file = text_to_words("build_semantic_descirptors_test1.txt")
     
     text = get_sentence_lists_from_files("build_semantic_descirptors_test1.txt")
@@ -365,7 +337,7 @@ if __name__ == '__main__':
     #as this has many more calcualtions than the previous res will be a boolean
     
     res = True
-    
+
     for keyword in sem_des.keys():
         for word in words_in_text(text):
             if word not in sem_des[keyword].items():
@@ -375,22 +347,8 @@ if __name__ == '__main__':
                     
                     
                 
-    
-        
-                    
-                
-                    
-=======
-        
-        
-        
-
-
-
-
 
 ############################################################################
 #Tests for build_semantic_descriptors()
 
 
->>>>>>> origin/master

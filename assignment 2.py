@@ -287,7 +287,7 @@ if __name__ == '__main__':
     
 #############################################################################
 #Boundary cases for get_sentences_from_files()
-    #Test by calling a text file witch tests many cases
+#Test by calling a text file which tests many cases
     
     print("testing get_sentences_from_files()")
     test_n = 1
@@ -303,6 +303,7 @@ if __name__ == '__main__':
     #run the test file
     sentences = get_sentence_lists(text_to_words("get_sentence_lists_test1.txt"))
     
+    #-------------------------------------------------------------------------
     #Test 1: Tests whether multiple characters will be stripped and not be 
     #included in the list
     
@@ -316,7 +317,7 @@ if __name__ == '__main__':
     print('TEST', test_n, ": True")
     test_n += 1
     
-    
+    #-------------------------------------------------------------------------
     #Test 2: Tests for sentences without words and only characters that are
     #stripped. Should not be included in the list
     for sentence in sentences:
@@ -327,6 +328,7 @@ if __name__ == '__main__':
     print('TEST', test_n, ": True")
     test_n += 1
     
+    #-------------------------------------------------------------------------
     #Test 3: Tests to make sure that numbers are not returned in the list
     for sentence in sentences:
                 for word in sentence:
@@ -336,6 +338,7 @@ if __name__ == '__main__':
     print('TEST', test_n, ": True")
     test_n += 1    
     
+    #-------------------------------------------------------------------------
     #Test 4: Tests if capitals are changed to lower cases
     for sentence in sentences:
         for word in sentence:
@@ -346,8 +349,15 @@ if __name__ == '__main__':
     test_n += 1        
 
 #############################################################################
-#Test cases for Build_Semantic_descriptors
+#Test cases for build_semantic_descriptors
+    #Comprises of two tests
+    print("testing build_semantic_descpriptors()")
+    test_n = 1
 
+    #-------------------------------------------------------------------------
+    #TEST 1: Tests to see if every word in each sematnt descriptor shows up
+    #at least once in the same sentence as the key word
+    
     words_in_file = text_to_words("build_semantic_descirptors_test1.txt")
     
     text = get_sentence_lists_from_files("build_semantic_descirptors_test1.txt")
@@ -372,10 +382,11 @@ if __name__ == '__main__':
     #As long as all items in res are True this will return True
     #Because res is a dictionary any problem words can be easily identifyed
     #this assists in troubleshooting and dubugging
-    print (False not in res.items())
+    print ('TEST', test_n, ':', False not in res.items())
+    test_n += 1
     
     #-------------------------------------------------------------------------
-    #this checks that all words not in the description vector are not found 
+    #TEST 2: checks that all words not in the description vector are not found 
     #in the same sentance as that word to save on processing
     #as this has many more calcualtions than the previous res will be a boolean
     
@@ -395,7 +406,7 @@ if __name__ == '__main__':
                     if word in sentance and keyword in sentance:
                         res[word] = False
     #print if res contains any False elements                     
-    print(False not in res.items())
+    print ('TEST', test_n, ':', False not in res.items())
     
     
     ###########################################################################

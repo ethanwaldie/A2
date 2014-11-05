@@ -57,7 +57,6 @@ def get_sentence_lists(text):
         #if the word contains a period, remember punctuation was not 
         #stripped
         if charactercheck(text[i]):
-            
             #temporay list
             tmp = []
             
@@ -67,14 +66,27 @@ def get_sentence_lists(text):
                 #Add words from the first word to the end of this 
                 #first sentance 
                 for x in range (i+1):
-                    tmp.append(remove(text[x]))
+                    
+                    if text[x].find("'") > 0:
+                        tmpstr = text[x].split("'")
+                        for string in tmpstr:
+                            tmp.append(remove(string))
+                    #Make sure empty strings are not included
+                    elif text[x].isdecimal() != True:
+                        if remove(text[x]) != "":
+                            tmp.append(remove(text[x]))
             else:
                 #If not first sentance, Add words from the last sentance
                 #period to the end of this sentance to the tmp list
                 for u in range(lastperiod + 1, i+1):
-                    #Make sure empty strings are not included
-                    if remove(text[u]) != "":
-                        tmp.append(remove(text[u]))
+                    if text[u].find("'") > 0:
+                        tmpstr = text[u].split("'")
+                        for string in tmpstr:
+                            tmp.append(remove(string)) 
+                            
+                    elif text[u].isdecimal() != True:
+                        if remove(text[u]) != "":
+                            tmp.append(remove(text[u]))
                     
             #append the tmp list to the sentances list
             if tmp != []:
@@ -214,7 +226,6 @@ def run_similarity_test(filename, semantic_descriptors):
     file.close()       #Close file being read
     
     #Checks to make sure semantic_descriptors is not an empty dictionary
-    print(len(semantic_descriptors.keys()))
     if len(semantic_descriptors.keys()) == 0:
         return 0
    
@@ -293,6 +304,8 @@ def words_in_text(sentances):
                 words[word] = {}  #Sets the value to be an empty dictionary
                 
     return words
+
+    
     
 
 if __name__ == '__main__':
@@ -314,11 +327,11 @@ if __name__ == '__main__':
        
     #This is the expected output of when the function runs the test file
     expected =     [['this', 'file', 'contains', 'testing', 'cases', 'for', 
-                'get', 'sentance', 'lists'], ['hello'], ['my', 'name', 
+                     'get', 'sentance', 'lists'], ['hello'], ['my', 'name', 
                 'is', 'ethan'], ['testing', 'functions'], 
                 ['is', 'a', 'good'], ['job'], ['and'], 
                 ['must'], ['be', 'done'], ['to', 'get'], ['a', 'good'], 
-                ['mark'], ['in', 'csc']]    
+                ['mark'], ['in', 'csc'], ["180" , "don", "t", "school", "s"]]    
     
     #run the test file
     sentences = get_sentence_lists(text_to_words("get_sentence_lists_test1.txt"))
@@ -359,13 +372,9 @@ if __name__ == '__main__':
     test_n += 1    
     
     #-------------------------------------------------------------------------
-    #Test 4: Tests if capitals are changed to lower cases
-    for sentence in sentences:
-        for word in sentence:
-            if word.isdecimal() == True:
-                print('TEST', test_n, ": False")
-                break
-    print('TEST', test_n, ": True")
+    #Test 4: Checks if list matches referance
+    if expected == sentences:
+        print('TEST', test_n, ": ", expected == sentences)
     test_n += 1        
 
 #############################################################################
@@ -428,13 +437,6 @@ if __name__ == '__main__':
     #print if res contains any False elements                     
     print ('TEST', test_n, ':', False not in res.items())
     
-    
-<<<<<<< HEAD
-
-#############################################################################
-#Testing most_simliar_word()
-
-=======
     ###########################################################################
     #Testing most_simlar_word()   
     print("testing most_similiar_word()")
@@ -469,8 +471,6 @@ if __name__ == '__main__':
         print("TEST ", test_n, " : ", expected[test_n] == res )
 
     
->>>>>>> FETCH_HEAD
-    
     
 #############################################################################
 #Test cases for run_similarity_test()
@@ -482,8 +482,6 @@ if __name__ == '__main__':
     
     
     sem_des = build_semantic_descriptors(text)
-    run_similarity_test('run_similarity_test_test1.txt', sem_des)
-    
     
     #-------------------------------------------------------------------------
     #TEST 1: Test if an error will reult if the answer is not in the choices
@@ -502,8 +500,6 @@ if __name__ == '__main__':
     #Should return a value of zero as the percentage
     
     sem_des2 = {}
-    print (len(sem_des2.keys()))
-           
     test = run_similarity_test('run_similarity_test_test1.txt', sem_des2)
     if test == 0:
         test_boolean = True

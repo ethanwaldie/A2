@@ -1,4 +1,4 @@
 this file contains testing cases for get sentance lists.
 hello....... my name is ethan!!
 testing functions! ;;;;;;! is a good? job!...
-and!!! must,. be done,./. to get.. a good!?. MARk.. in csc. 180 
+and!!! must,. be done,./. to get.. a good!?. MARk.. in csc. 180.80 don't school's.

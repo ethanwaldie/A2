@@ -182,7 +182,7 @@ def most_similar_word(word, choices, semantic_descriptors):
         else:
             sim.append(-1) #If the word is not in the semantic descrpiptor
                            #return -1 so that it does not get
-    
+    print ("sim ", sim )
     if -1 in sim:
         return "Word not in text"
     
@@ -410,8 +410,40 @@ if __name__ == '__main__':
     
     
     ###########################################################################
-    #Testing most_simliar_word()
-    words_in_file = test_to_words("most_similar_word_test1")
+    #Testing most_simlar_word()   
+    print("testing most_similiar_word()")
+    
+    sem_des = {"a":{"a":0, "b":0, "c":0, "d":0, "e":0, "f":0 },
+               "b":{"a":0, "b":0, "c":0, "d":0, "e":0, "f":0 },
+               "c":{"a":0, "b":0, "c":0, "d":0, "e":0, "f":0 },
+               "d":{"a":0, "b":0, "c":0, "d":0, "e":0, "f":0 },
+               "e":{"a":0, "b":0, "c":0, "d":0, "e":0, "f":0 },
+               "f":{"a":0, "b":0, "c":0, "d":0, "e":0, "f":0 },
+               }
+    
+    """
+    These lists prepare words to compare with choices
+    
+    word -- [words to compare]
+    
+    choices -- [choices for corrisponding word]
+    
+    expected -- [expected answer]
+    """
+    word = ["a", "b", "c", "d", "e", "f"]
+    
+    
+    print(sem_des)
+    
+    
+    for test_n in range(6):
+        res = most_similar_word(word[test_n],choices[test_n],sem_des) 
+        print(word[test_n])
+        print(choices[test_n])
+        print(res)
+        print("TEST ", test_n, " : ", expected[test_n] == res )
+
+    
     
     
     

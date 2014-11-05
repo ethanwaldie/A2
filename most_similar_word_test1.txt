@@ -1,10 +1,13 @@
 Dog pet.
 Dog pet.
+dog canine.
+dog canine.
 Sister, sibling.
 Sister, pet.
 Sister, sibling.
 brother, boy.
 boy, boy. 
 brother, boy.
-sister, dog.
+sister, dog
+brother sister.
 pet, friend.

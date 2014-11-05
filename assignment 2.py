@@ -71,15 +71,17 @@ def get_sentence_lists(text):
             else:
                 #If not first sentance, Add words from the last sentance
                 #period to the end of this sentance to the tmp list
-                
                 for u in range(lastperiod + 1, i+1):
-                    tmp.append(remove(text[u]))
+                    #Make sure empty strings are not included
+                    if remove(text[u]) != "":
+                        tmp.append(remove(text[u]))
                     
             #append the tmp list to the sentances list
-            sentances.append(tmp)
+            if tmp != []:
+                sentances.append(tmp)
             
             #set this period to be the last known period.
-            lastperiod = i
+            lastperiod = i   
     
     #Returns the new list of all the sentences
     return sentances
@@ -260,11 +262,15 @@ if __name__ == '__main__':
     #Boundry cases
     
     #get_sentance_lists  
-    test = [['this', 'file', 'contains', 'testing', 'cases', 'for', 'get', 
-            'sentance', 'lists'], ['hello'], ['my', 'name', 'is', 'ethan'], 
-            ['testing', 'functions'], [''], ['is', 'a', 'good'], ['job'], 
-            ['and'], ['must'], ['be', 'done'], ['to', 'get'], 
-            ['a', 'good'], ['mark'], ['in', 'csc']]
+    test =     [['this', 'file', 'contains', 'testing', 'cases', 'for', 
+                'get', 'sentance', 'lists'], ['hello'], ['my', 'name', 
+                'is', 'ethan'], ['testing', 'functions'], 
+                ['is', 'a', 'good'], ['job'], ['and'], 
+                ['must'], ['be', 'done'], ['to', 'get'], ['a', 'good'], 
+                ['mark'], ['in', 'csc']]
+
+    
+    print(get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
     
     print (test == get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
     
@@ -276,7 +282,55 @@ if __name__ == '__main__':
     #-----------------------------------------------------------
     # Testing Build Semantic descriptors
     
+    words_in_file = text_to_words("build_semantic_descirptors_test1.txt")
     
+    text = get_sentence_lists_from_files("build_semantic_descirptors_test1.txt")
     
+    sem_des = build_semantic_descriptors(text)
     
+    res = {}
     
+    #Sets res to be a dictionary with the same keys as 
+    #sem_des however has all items = False
+    for keyword in sem_des.keys():
+        res[keyword] = False
+    
+    #Go through all the words with semantic descriptor vectors
+    for keyword in sem_des.keys():
+        #go through all the words that it says appears in the same sentance
+        for word in sem_des[keyword].keys():
+            
+            #go through all the sentances in the text
+            for sentance in text:
+                #if the keyword we are looking for is in the same sentance 
+                #as the word we are on in its simliarity vector
+                #at least once, the res dictionary at that keyword will be True
+                if keyword in sentance and word in sentance:
+                    res[keyword] = True
+    
+    #As long as all items in res are True this will return True
+    #Because res is a dictionary any problem words can be easily identifyed
+    #this assists in troubleshooting and dubugging
+    print (False not in res.items())
+    
+    #-------------------------------------------------------------------------
+    #this checks that all words not in the description vector are not found 
+    #in the same sentance as that word to save on processing
+    #as this has many more calcualtions than the previous res will be a boolean
+    
+    res = True
+    
+    for keyword in sem_des.keys():
+        for word in words_in_text(text):
+            if word not in sem_des[keyword].items():
+                for sentance in text:
+                    if word in sentance and keyword in sentance:
+                        res = False
+                    
+                    
+                
+    
+        
+                    
+                
+                    

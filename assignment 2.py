@@ -299,7 +299,7 @@ if __name__ == '__main__':
                 ['mark'], ['in', 'csc']]
 
     
-    print(get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
+    print(text == get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
 #############################################################################
 #Test cases for Build_Semantic_descriptors
 
@@ -310,11 +310,6 @@ if __name__ == '__main__':
     sem_des = build_semantic_descriptors(text)
     
     res = {}
-    
-    #Sets res to be a dictionary with the same keys as 
-    #sem_des however has all items = False
-    for keyword in sem_des.keys():
-        res[keyword] = False
     
     #Go through all the words with semantic descriptor vectors
     for keyword in sem_des.keys():
@@ -339,19 +334,34 @@ if __name__ == '__main__':
     #in the same sentance as that word to save on processing
     #as this has many more calcualtions than the previous res will be a boolean
     
-    res = True
-
+    res = {}
+    
+    #go through all keys in sem_des
     for keyword in sem_des.keys():
+        #go through all unique words in text
         for word in words_in_text(text):
+            #if the word is not in the list of words known to be in same 
+            #sentance as keyword
             if word not in sem_des[keyword].items():
+                #go look through all the sentances and check
                 for sentance in text:
+                    #if they are in the same sentanace add a False enrty to res
+                    #at word
                     if word in sentance and keyword in sentance:
-                        res = False
+                        res[word] = False
+    #print if res contains any False elements                     
+    print(False not in res.items())
+    
+    
+    ###########################################################################
+    #Testing most_simliar_word()
+    
+    
+    
+    
+    
                     
                     
-                
-
-############################################################################
-#Tests for build_semantic_descriptors()
+        
 
 

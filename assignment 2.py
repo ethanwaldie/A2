@@ -55,12 +55,6 @@ def get_sentence_lists(text):
         #if the word contains a period, remember punctuation was not 
         #stripped
         if charactercheck(text[i]):
-<<<<<<< HEAD
-            #temporay list
-            tmp = []
-=======
-            
->>>>>>> origin/master
             
             tmp = [] #temporay list to store each sentence
             
@@ -76,7 +70,7 @@ def get_sentence_lists(text):
                         for string in tmpstr:
                             tmp.append(remove(string))
                     #Make sure empty strings are not included
-                    elif text[x].isdecimal() != True:
+                    elif remove(text[x]).isnumeric != True:
                         if remove(text[x]) != "":
                             tmp.append(remove(text[x]))
             else:
@@ -88,7 +82,7 @@ def get_sentence_lists(text):
                         for string in tmpstr:
                             tmp.append(remove(string)) 
                             
-                    elif text[u].isdecimal() != True:
+                    elif remove(text[u]).isnumeric() != True:
                         if remove(text[u]) != "":
                             tmp.append(remove(text[u]))
                     
@@ -307,8 +301,6 @@ def words_in_text(sentances):
                 words[word] = {}  #Sets the value to be an empty dictionary
                 
     return words
-
-    
     
 
 if __name__ == '__main__':
@@ -334,11 +326,11 @@ if __name__ == '__main__':
                 'is', 'ethan'], ['testing', 'functions'], 
                 ['is', 'a', 'good'], ['job'], ['and'], 
                 ['must'], ['be', 'done'], ['to', 'get'], ['a', 'good'], 
-                ['mark'], ['in', 'csc'], ["180" , "don", "t", "school", "s"]]    
+                ['mark'], ['in', 'csc'], ["don", "t", "school", "s"]]    
     
     #run the test file
     sentences = get_sentence_lists(text_to_words("get_sentence_lists_test1.txt"))
-    
+    print(sentences)
     #-------------------------------------------------------------------------
     #Test 1: Tests whether multiple characters will be stripped and not be 
     #included in the list
@@ -377,8 +369,7 @@ if __name__ == '__main__':
     
     #-------------------------------------------------------------------------
     #Test 4: Checks if list matches referance
-    if expected == sentences:
-        print('TEST', test_n, ": ", expected == sentences)
+    print('TEST', test_n, ":", expected == sentences)
     test_n += 1        
 
 #############################################################################
@@ -441,17 +432,10 @@ if __name__ == '__main__':
     #print if res contains any False elements                     
     print ('TEST', test_n, ':', False not in res.items())
     
-<<<<<<< HEAD
-    ###########################################################################
-    #Testing most_simlar_word()   
-    print("testing most_similiar_word()")
-=======
-    
 
 ##########################################################################
 #Testing most_simlar_word()   
     print("\ntesting most_similiar_word()")
->>>>>>> origin/master
     
     sem_des = {"a":{"b":1, "c":1, "d":1, "e":1, "f":1 },
                "b":{"a":0, "c":1, "d":2, "e":3, "f":1 },
@@ -528,10 +512,7 @@ if __name__ == '__main__':
     #Should return a value of zero as the percentage
     
     sem_des2 = {}
-<<<<<<< HEAD
-=======
-           
->>>>>>> origin/master
+    
     test = run_similarity_test('run_similarity_test_test1.txt', sem_des2)
     if test == 0:
         test_boolean = True

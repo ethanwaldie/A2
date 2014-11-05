@@ -258,7 +258,10 @@ def text_to_words(text):
     return open(text).read().split()
 
 def remove(word):
-    '''Removes the 
+    '''Returns the word without any extra characters
+    
+    Arguemnts:
+    word -- string
     '''
     return word.lower().strip("?,.!;:+-/*--")
 

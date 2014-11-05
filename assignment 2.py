@@ -411,6 +411,7 @@ if __name__ == '__main__':
     
     ###########################################################################
     #Testing most_simliar_word()
+    words_in_file = test_to_words("most_similar_word_test1")
     
     
     

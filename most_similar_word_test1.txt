@@ -1,0 +1,10 @@
+Dog pet.
+Dog pet.
+Sister, sibling.
+Sister, pet.
+Sister, sibling.
+brother, boy.
+boy, boy. 
+brother, boy.
+sister, dog.
+pet, friend.

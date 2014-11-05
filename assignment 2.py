@@ -280,7 +280,6 @@ def words_in_text(sentances):
 
 if __name__ == '__main__':
 
-    Test_n = 1
     #Testing strategy:
     #Test all boundry cases for each function that would return
     #a list with incorrect lists
@@ -288,18 +287,68 @@ if __name__ == '__main__':
     
 #############################################################################
 #Boundary cases for get_sentences_from_files()
-
+    #Test by calling a text file witch tests many cases
     
-    #get_sentance_lists  
-    test =     [['this', 'file', 'contains', 'testing', 'cases', 'for', 
+    print("testing get_sentences_from_files()")
+    test_n = 1
+       
+    #This is the expected output of when the function runs the test file
+    expected =     [['this', 'file', 'contains', 'testing', 'cases', 'for', 
                 'get', 'sentance', 'lists'], ['hello'], ['my', 'name', 
                 'is', 'ethan'], ['testing', 'functions'], 
                 ['is', 'a', 'good'], ['job'], ['and'], 
                 ['must'], ['be', 'done'], ['to', 'get'], ['a', 'good'], 
-                ['mark'], ['in', 'csc']]
+                ['mark'], ['in', 'csc']]    
+    
+    #run the test file
+    sentences = get_sentence_lists(text_to_words("get_sentence_lists_test1.txt"))
+    
+    #Test 1: Tests whether multiple characters will be stripped and not be 
+    #included in the list
+    
+    forbid = [" ", ".", "?", "/", "!", ";", ":"]
+    for sentence in sentences:
+        for word in sentence:
+            for e in forbid:
+                if e in word:
+                    print('TEST', test_n, ": False")
+
+    print('TEST', test_n, ": True")
+    test_n += 1
+    
+    
+    #Test 2: Tests for sentences without words and only characters that are
+    #stripped. Should not be included in the list
+    for sentence in sentences:
+            for word in sentence:
+                if '' == word:
+                    print('TEST', test_n, ": False")
+                    break
+    print('TEST', test_n, ": True")
+    test_n += 1
+    
+    #Test 3: Tests to make sure that numbers are not returned in the list
+    for sentence in sentences:
+                for word in sentence:
+                    if word.isdecimal() == True:
+                        print('TEST', test_n, ": False")
+                        break
+    print('TEST', test_n, ": True")
+    test_n += 1    
+    
+    #Test 4: Tests if capitals are changed to lower cases
+    for sentence in sentences:
+        for word in sentence:
+            if word.isdecimal() == True:
+                print('TEST', test_n, ": False")
+                break
+    print('TEST', test_n, ": True")
+    test_n += 1        
+
+   
 
     
-    print(get_sentence_lists(text_to_words("get_sentence_lists_test1.txt")))
+    
 #############################################################################
 #Test cases for Build_Semantic_descriptors
 
@@ -349,7 +398,6 @@ if __name__ == '__main__':
                         res = False
                     
                     
-                
 
 ############################################################################
 #Tests for build_semantic_descriptors()

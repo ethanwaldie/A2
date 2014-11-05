@@ -55,10 +55,6 @@ def get_sentence_lists(text):
         #if the word contains a period, remember punctuation was not 
         #stripped
         if charactercheck(text[i]):
-<<<<<<< HEAD
-
-=======
->>>>>>> FETCH_HEAD
             
             tmp = [] #temporay list to store each sentence
             
@@ -342,10 +338,7 @@ if __name__ == '__main__':
     
     #run the test file
     sentences = get_sentence_lists(text_to_words("get_sentence_lists_test1.txt"))
-<<<<<<< HEAD
-=======
-    print(sentences)
->>>>>>> FETCH_HEAD
+
     #-------------------------------------------------------------------------
     #Test 1: Tests whether multiple characters will be stripped and not be 
     #included in the list
@@ -391,14 +384,8 @@ if __name__ == '__main__':
     test_n += 1    
     
     #-------------------------------------------------------------------------
-<<<<<<< HEAD
-    #Test 4: Checks if list matches expected list
-    if expected == sentences:
-        print('TEST', test_n, ": ", expected == sentences)
-=======
     #Test 4: Checks if list matches referance
     print('TEST', test_n, ":", expected == sentences)
->>>>>>> FETCH_HEAD
     test_n += 1        
 
 #############################################################################
@@ -562,11 +549,7 @@ if __name__ == '__main__':
     #a list index out of range error
     
     sem_des2 = {}
-<<<<<<< HEAD
-           
-=======
     
->>>>>>> FETCH_HEAD
     test = run_similarity_test('run_similarity_test_test1.txt', sem_des2)
     if test == 0:
         test_boolean = True

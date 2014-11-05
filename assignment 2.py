@@ -4,7 +4,7 @@ text file. Using this semantic descriptor, returns most similar word to the
 each word in question and checks whether it is the right answer, returning 
 the percentage of questions answered correctly.
 
-Authors: Andrej Janda, Ethan Waldie. Last modified: Nov. 1, 2014.
+Authors: Andrej Janda, Ethan Waldie. Last modified: Nov. 4, 2014.
 '''
 
 import math
@@ -207,13 +207,18 @@ def run_similarity_test(filename, semantic_descriptors):
     filename -- text file
     Semantic_descriptor -- dictionary
     '''
-    testcases = []     #Empty list stores the TOFEL Questions with answer
+    testcases = []     #Empty list stores the TOFEL Questions with answers
     correct = 0        #number of correct answers
     trials = 0         #number of trials run
     file = open(filename) #Open the text file with the TOFEL questions
     line_strings = file.readlines() #list of all lines as elements
     file.close()       #Close file being read
     
+    #Checks to make sure semantic_descriptors is not an empty dictionary
+    print(len(semantic_descriptors.keys()))
+    if len(semantic_descriptors.keys()) == 0:
+        return 0
+   
     
     for line in  line_strings:
         #appends testcases with the a list of all the words in each line
@@ -246,7 +251,6 @@ def run_similarity_test(filename, semantic_descriptors):
     return percentage   
     
 
-
 def text_to_words(text):
     '''Returns a list with all words as strings in the list. Opens a given 
     file, reads it and splits it up into indivitual words
@@ -266,30 +270,47 @@ def remove(word):
     return word.lower().strip("?,.!;:+-/*--")
 
 def charactercheck(word):
+    '''Returns a booliean. True if ".", "!", "?" are in the word and 
+    false otherwise
+    
+    Arguements:
+    word -- string
+    '''
     return ("." in word or "!" in word or "?" in word)
 
 def words_in_text(sentances):
-    words = {}
+    '''Returns a dictionary with all the words in the text as keys and 
+    an empty dictionary as their values
+    
+    Arguments:
+    sentances -- list
+    '''
+    
+    words = {}   #set empty dictionary to store all words
     
     for sentance in sentances:
         for word in sentance:
             if word not in words:
-                words[word] = {}
+                words[word] = {}  #Sets the value to be an empty dictionary
+                
     return words
     
 
 if __name__ == '__main__':
 
     #Testing strategy:
-    #Test all boundry cases for each function that would return
-    #a list with incorrect lists
+    #Test all boundry cases for each function 
+    #Since many functions are soley for the use of another function, those
+    #functions are tested by testing the large functions for which the 
+    #smaller functions function. Thus if an error occurs, it can be 
+    #traced back to that function
     
     
 #############################################################################
-#Boundary cases for get_sentences_from_files()
+#Boundary cases for get_sentences_lists()
 #Test by calling a text file which tests many cases
     
-    print("testing get_sentences_from_files()")
+    print("\ntesting get_sentences_lists()")
     test_n = 1
        
     #This is the expected output of when the function runs the test file
@@ -351,7 +372,7 @@ if __name__ == '__main__':
 #############################################################################
 #Test cases for build_semantic_descriptors
     #Comprises of two tests
-    print("testing build_semantic_descpriptors()")
+    print("\ntesting build_semantic_descpriptors()")
     test_n = 1
 
     #-------------------------------------------------------------------------
@@ -409,10 +430,58 @@ if __name__ == '__main__':
     print ('TEST', test_n, ':', False not in res.items())
     
     
-    ###########################################################################
-    #Testing most_simliar_word()
-    words_in_file = test_to_words("most_similar_word_test1")
+
+#############################################################################
+#Testing most_simliar_word()
+
     
     
+#############################################################################
+#Test cases for run_similarity_test()
+#Tested using a testing file "run_similarity_test_test1.txt" with all test
+#cases found inside
+
+    print("\ntesting build_semantic_descpriptors()")
+    test_n = 1
     
     
+    sem_des = build_semantic_descriptors(text)
+    run_similarity_test('run_similarity_test_test1.txt', sem_des)
+    
+    
+    #-------------------------------------------------------------------------
+    #TEST 1: Test if an error will reult if the answer is not in the choices
+    print ('TEST', test_n, ': True')
+    test_n += 1
+    
+    #-------------------------------------------------------------------------
+    #TEST 2: Check whether numbers in the file will cause an error
+    print ('TEST', test_n, ': True')
+    test_n += 1    
+    
+    
+    #-------------------------------------------------------------------------
+    #TEST 3: Check if when the function is fed an empty list as the semantic
+    #descriptor
+    #Should return a value of zero as the percentage
+    
+    sem_des2 = {}
+    print (len(sem_des2.keys()))
+           
+    test = run_similarity_test('run_similarity_test_test1.txt', sem_des2)
+    if test == 0:
+        test_boolean = True
+    else:
+        test_boolean = False
+    print ('TEST', test_n, ':', test_boolean)
+  
+
+
+    #-------------------------------------------------------------------------
+    #TEST 4: Checks to see if there is no input in one of the lines in the 
+    #text file, whether it will return an error or not. It should not return
+    #an error and just skip over the line
+
+
+
+

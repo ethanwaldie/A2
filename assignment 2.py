@@ -55,12 +55,7 @@ def get_sentence_lists(text):
         #if the word contains a period, remember punctuation was not 
         #stripped
         if charactercheck(text[i]):
-<<<<<<< HEAD
-            #temporay list
-            tmp = []
-=======
-            
->>>>>>> origin/master
+
             
             tmp = [] #temporay list to store each sentence
             
@@ -312,6 +307,14 @@ def words_in_text(sentances):
     
 
 if __name__ == '__main__':
+    
+    #Question 3
+    print ('QUESTION 3: Running "Swann’s Way" and "War and Peace"')
+    print ('building semantic descriptors...')
+    
+    
+    
+    
 
     #Testing strategy:
     #Test all boundry cases for each function 
@@ -330,18 +333,19 @@ if __name__ == '__main__':
        
     #This is the expected output of when the function runs the test file
     expected =     [['this', 'file', 'contains', 'testing', 'cases', 'for', 
-                     'get', 'sentance', 'lists'], ['hello'], ['my', 'name', 
+                'get', 'sentance', 'lists'], ['hello'], ['my', 'name', 
                 'is', 'ethan'], ['testing', 'functions'], 
                 ['is', 'a', 'good'], ['job'], ['and'], 
                 ['must'], ['be', 'done'], ['to', 'get'], ['a', 'good'], 
-                ['mark'], ['in', 'csc'], ["180" , "don", "t", "school", "s"]]    
+                ['mark'], ['in', 'csc'], ["don", "t", "school", "s"]]    
     
     #run the test file
     sentences = get_sentence_lists(text_to_words("get_sentence_lists_test1.txt"))
-    
     #-------------------------------------------------------------------------
     #Test 1: Tests whether multiple characters will be stripped and not be 
     #included in the list
+    #could be an issue because it could also not strip all the caracters 
+    #causing words that are the same to register as different
     
     forbid = [" ", ".", "?", "/", "!", ";", ":"]
     for sentence in sentences:
@@ -356,6 +360,9 @@ if __name__ == '__main__':
     #-------------------------------------------------------------------------
     #Test 2: Tests for sentences without words and only characters that are
     #stripped. Should not be included in the list
+    #empty lists could cause the program to glitch and feed wrong information
+    #to subsequent functions
+    
     for sentence in sentences:
             for word in sentence:
                 if '' == word:
@@ -367,6 +374,9 @@ if __name__ == '__main__':
     
     #-------------------------------------------------------------------------
     #Test 3: Tests to make sure that numbers are not returned in the list
+    #numbers cannot have synonyms and therefore could cause an error in the
+    #result if not removed
+    
     for sentence in sentences:
                 for word in sentence:
                     if word.isdecimal() == True:
@@ -376,7 +386,7 @@ if __name__ == '__main__':
     test_n += 1    
     
     #-------------------------------------------------------------------------
-    #Test 4: Checks if list matches referance
+    #Test 4: Checks if list matches expected list
     if expected == sentences:
         print('TEST', test_n, ": ", expected == sentences)
     test_n += 1        
@@ -441,17 +451,23 @@ if __name__ == '__main__':
     #print if res contains any False elements                     
     print ('TEST', test_n, ':', False not in res.items())
     
-<<<<<<< HEAD
-    ###########################################################################
-    #Testing most_simlar_word()   
-    print("testing most_similiar_word()")
-=======
-    
 
 ##########################################################################
 #Testing most_simlar_word()   
+#Tests a wide range of vectors and makes sure that the program picks the
+#one with the highest similarity
+
+#TEST OVERVIEW
+#TEST 1: Both of the options are the same as the word, should pick a
+#TEST 2: 
+#TEST 3:
+#TEST 4:
+#TEST 5:
+#TEST 6:
+
+
+
     print("\ntesting most_similiar_word()")
->>>>>>> origin/master
     
     sem_des = {"a":{"b":1, "c":1, "d":1, "e":1, "f":1 },
                "b":{"a":0, "c":1, "d":2, "e":3, "f":1 },
@@ -470,6 +486,7 @@ if __name__ == '__main__':
     
     expected -- [expected answer]
     """
+    
     word = ["a", "a", "a", "d", "e", "f"]
     
     choices = [["a", "a"],["c", "f"],["d", "f", "c"],["e", "b", "c"],
@@ -480,7 +497,7 @@ if __name__ == '__main__':
     
     for test_n in range(len(word)):
         res = most_similar_word(word[test_n],choices[test_n],sem_des) 
-        print("TEST ", test_n, " : ", expected[test_n] == res )
+        print("TEST ", test_n + 1, " : ", expected[test_n] == res )
 
     
     
@@ -498,6 +515,8 @@ if __name__ == '__main__':
     #TEST 1: check if the choices do not contain the answer or if no choices
     #are given or if the question is given in other characters, whether the
     #program will return 0 percentage correct
+    #If the questions don't contain the answer, then the question is 
+    #inherently wrong and needs to return nothing
     
     check = run_similarity_test('run_similarity_test_test1.txt', sem_des)
     if check == 0:
@@ -509,6 +528,9 @@ if __name__ == '__main__':
     
     #-------------------------------------------------------------------------
     #TEST 2: Check whether numbers in the file will cause an error
+    #numbers should not be registered as questions since they cannot have
+    #synonyms. This would cause large problems in the code.
+    
     check = run_similarity_test('run_similarity_test_test1.txt', sem_des)
     
     #Should give zero percent correct since the semantic descriptor has no
@@ -526,12 +548,11 @@ if __name__ == '__main__':
     #TEST 3: Check if when the function is fed an empty list as the semantic
     #descriptor
     #Should return a value of zero as the percentage
+    #possibility of an empty list being fed into the program could cause
+    #a list index out of range error
     
     sem_des2 = {}
-<<<<<<< HEAD
-=======
            
->>>>>>> origin/master
     test = run_similarity_test('run_similarity_test_test1.txt', sem_des2)
     if test == 0:
         test_boolean = True

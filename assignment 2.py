@@ -65,8 +65,9 @@ def get_sentence_lists(text):
                 #first sentance 
                 for x in range (i+1):
                     
-                    if text[x].find("'") > 0:
-                        tmpstr = text[x].split("'")
+                    if text[x].find("'") > 0: #
+                        #Set temporary string to hold
+                        tmpstr = text[x].split("'") 
                         for string in tmpstr:
                             tmp.append(remove(string))
                     #Make sure empty strings are not included
@@ -77,11 +78,13 @@ def get_sentence_lists(text):
                 #If not first sentance, Add words from the last sentance
                 #period to the end of this sentance to the tmp list
                 for u in range(lastperiod + 1, i+1):
+                    #search for words with apporstafies in the middle
                     if text[u].find("'") > 0:
                         tmpstr = text[u].split("'")
                         for string in tmpstr:
                             tmp.append(remove(string)) 
                             
+                    #Removes all strings that contain numbers
                     elif remove(text[u]).isnumeric() != True:
                         if remove(text[u]) != "":
                             tmp.append(remove(text[u]))
@@ -301,17 +304,67 @@ def words_in_text(sentances):
                 words[word] = {}  #Sets the value to be an empty dictionary
                 
     return words
+
+def add_semantic_descpritors(semantic_descriptor1, semantic_descriptor2):
+    '''Returns a new dictionary which is a combination of semantic_descriptor1 
+    and semantic_descriptor2 for each word
+    
+    Arguemnts:
+    semantic_descriptor1 -- dictionary
+    semantic_descriptor2 -- dictionary
+    '''
+    new_semantic_descriptor = {}
+
+    for keyword in semantic_descriptor1:
+        temp_dic = {}
+        if keyword in semantic_descriptor2.keys():
+            sem_temp_1 = semantic_descriptor2[keyword]
+            sem_temp_2 = semantic_descriptor1[keyword]
+            for word_1 in sem_temp_1:
+                store_freq_1 = list(word_1)
+                print (store_freq_1)
+                '''for word_2 in sem_temp_2:
+                    store_freq_2 = list(word_2)
+                    if store_freq_1[0] == store_freq_2[0]:
+                        temp_value = store_freq_1[1] + store_freq_2[1]
+                        temp_dic[store_freq_2[0]] = temp_value
+                    else:
+                        temp_dic[store_freq_1[0]] = store_freq_1[1]
+                        temp_dic[store_freq_2[0]] = store_freq_2[1]
+                        
+        new_semantic_descriptor[keyword] = temp_dic'''
+            
+        
+       
+       
+    return semantic_descriptor2
     
 
 if __name__ == '__main__':
     
     #Question 3
-    print ('QUESTION 3: Running "Swann’s Way" and "War and Peace"')
-    print ('building semantic descriptors...')
+    print ('\nQUESTION 3: Running "Swann’s Way" and "War and Peace"')
+    print ('building semantic descriptors...\nPlease wait...')
+    '''text1 = text_to_words('War and peace.txt')
+    test2 = test_to_words("Swann's way.txt")
+    sentences = get_sentence_lists(text)
+    sentences.append
+    build_semantic_descriptors(sentences)'''
     
+    sem_1 = {'a': {'b': 1, 'c': 1}, 'g': {'a': 1, 'b': 1}}
+    sem_2 = {'a': {'b': 1, 'c': 1}, 'h': {'a': 1, 'b': 1}}
     
+    print (add_semantic_descpritors(sem_1, sem_2))
     
+    x = {'a':1, 'b': 2}
+    y = {'b':10, 'c': 11}    
+    z = dict(list(x.items()) + list(y.items()))
+    print (z)
     
+    a = [('b', 1), ('c', 1)]
+    b = [('b', 1), ('c', 1)]
+    
+    print (a+b)
 
     #Testing strategy:
     #Test all boundry cases for each function 

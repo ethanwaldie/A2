@@ -271,7 +271,7 @@ def text_to_words(text):
     Arguements:
     text -- text file
     '''
-    return open(text).read().split()
+    return open(filename, "r", encoding="utf-8").read().split()
 
 def remove(word):
     '''Return the word without any extra characters
@@ -308,7 +308,6 @@ def words_in_text(sentances):
                 
     return words
 
-    
 
 if __name__ == '__main__':
     
@@ -335,8 +334,6 @@ if __name__ == '__main__':
     print(run_similarity_test('testingdata.txt', sem_des))
     
     
-    
-
     #Testing strategy:
     #Test all boundry cases for each function 
     #Since many functions are soley for the use of another function, those
@@ -348,7 +345,7 @@ if __name__ == '__main__':
 #############################################################################
 #Boundary cases for get_sentences_lists()
 #Test by calling a text file which tests many cases
-    
+
     print("\ntesting get_sentences_lists()")
     test_n = 1
        

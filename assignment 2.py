@@ -321,13 +321,13 @@ if __name__ == '__main__':
     sentances2 = get_sentence_lists_from_files("Swann's Way.txt")
     
     sentances.append(sentances2)
-    f = open('sentances.txt', 'w')
+    f = open('sentances.txt', 'w', encoding="utf-8")
     f.write(str(sentances))
     f.close()      
     
     sem_des = build_semantic_descriptors(sentances)
     
-    f = open('semantic.txt', 'w')
+    f = open('semantic.txt', 'w', encoding="utf-8")
     f.write(str(sem_des))
     f.close()    
     

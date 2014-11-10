@@ -271,7 +271,7 @@ def text_to_words(text):
     Arguements:
     text -- text file
     '''
-    return open(filename, "r", encoding="utf-8").read().split()
+    return open(text, "r", encoding="utf-8").read().split()
 
 def remove(word):
     '''Return the word without any extra characters

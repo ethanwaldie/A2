@@ -135,6 +135,7 @@ def build_semantic_descriptors(sentences):
     #the number of times each word appears in the same sentence as the keyword
     
     for keyword in d.keys():
+
         
         #create tempary dictionary to hold the values of frequency of 
         #everyword so that it can be added to its appropriate key in the 
@@ -164,7 +165,8 @@ def build_semantic_descriptors(sentences):
                         tmp[word] += 1
                         
                 #deletes the word iself from the list
-                del tmp[keyword]
+                if keyword in tmp.keys():
+                    del tmp[keyword]
                 
         d[keyword] = tmp #Set the dictionary at that word equal to the
                          #semantic descriptor for that keyword
@@ -301,70 +303,31 @@ def words_in_text(sentances):
     for sentance in sentances:
         for word in sentance:
             if word not in words:
-                words[word] = {}  #Sets the value to be an empty dictionary
+                if word != '':
+                    words[word] = {}  #Sets the value to be an empty dictionary
                 
+    print(words)
     return words
 
-def add_semantic_descpritors(semantic_descriptor1, semantic_descriptor2):
-    '''Returns a new dictionary which is a combination of semantic_descriptor1 
-    and semantic_descriptor2 for each word
-    
-    Arguemnts:
-    semantic_descriptor1 -- dictionary
-    semantic_descriptor2 -- dictionary
-    '''
-    new_semantic_descriptor = {}
-
-    for keyword in semantic_descriptor1:
-        temp_dic = {}
-        if keyword in semantic_descriptor2.keys():
-            sem_temp_1 = semantic_descriptor2[keyword]
-            sem_temp_2 = semantic_descriptor1[keyword]
-            for word_1 in sem_temp_1:
-                store_freq_1 = list(word_1)
-                print (store_freq_1)
-                '''for word_2 in sem_temp_2:
-                    store_freq_2 = list(word_2)
-                    if store_freq_1[0] == store_freq_2[0]:
-                        temp_value = store_freq_1[1] + store_freq_2[1]
-                        temp_dic[store_freq_2[0]] = temp_value
-                    else:
-                        temp_dic[store_freq_1[0]] = store_freq_1[1]
-                        temp_dic[store_freq_2[0]] = store_freq_2[1]
-                        
-        new_semantic_descriptor[keyword] = temp_dic'''
-            
-        
-       
-       
-    return semantic_descriptor2
     
 
 if __name__ == '__main__':
     
-    #Question 3
-    print ('\nQUESTION 3: Running "Swann’s Way" and "War and Peace"')
-    print ('building semantic descriptors...\nPlease wait...')
-    '''text1 = text_to_words('War and peace.txt')
-    test2 = test_to_words("Swann's way.txt")
-    sentences = get_sentence_lists(text)
-    sentences.append
-    build_semantic_descriptors(sentences)'''
+    #Question 3 this code reads in war and peace and then appends the sentences
+    #from swan lake to War and Peace.
+    #Then it builds sematic descriptors
+    #then it runs a similarity test using then words found in the test file.
     
-    sem_1 = {'a': {'b': 1, 'c': 1}, 'g': {'a': 1, 'b': 1}}
-    sem_2 = {'a': {'b': 1, 'c': 1}, 'h': {'a': 1, 'b': 1}}
+    sentances = get_sentence_lists_from_files("War and Peace.txt")
     
-    print (add_semantic_descpritors(sem_1, sem_2))
+    sentances.append("Swann's Way.txt")
     
-    x = {'a':1, 'b': 2}
-    y = {'b':10, 'c': 11}    
-    z = dict(list(x.items()) + list(y.items()))
-    print (z)
+    sem_des = build_semantic_descriptors(sentances)
     
-    a = [('b', 1), ('c', 1)]
-    b = [('b', 1), ('c', 1)]
+    run_similarity_test('testingdata.txt', sem_des)
     
-    print (a+b)
+    
+    
 
     #Testing strategy:
     #Test all boundry cases for each function 

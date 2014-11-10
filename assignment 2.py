@@ -185,6 +185,8 @@ def most_similar_word(word, choices, semantic_descriptors):
     
     #Create empty list to store the cosine similarty for each choice
     sim = []
+    
+    print("Called")
 
     for choice in choices:
         #appends the cosine similarity of each respective choice
@@ -199,7 +201,7 @@ def most_similar_word(word, choices, semantic_descriptors):
                            #return -1 so that it does not get
     if -1 in sim:
         return "Word not in text"
-    
+    print(word, "Similarity", str(sim))
     
     #Set variable maxrun to store the highest similarity
     maxrun = 0
@@ -251,12 +253,15 @@ def run_similarity_test(filename, semantic_descriptors):
             #check which word is the most similar
             synonym = most_similar_word(test[0], choices, semantic_descriptors)
             if synonym == test[1]:
+                print(test[1], "we chose", synonym)
                 
                 #If the program guessed correctly, update number of correct
                 #guesses
                 correct += 1
         
         trials +=1 #Updates the number of trials run
+        
+    print(trials, "tests:", len(testcases))
     
     #Calculates the percentage that the program guesses correctly
     if trials != 0: # cannot divide by zero if trials is not updated
@@ -302,7 +307,7 @@ def words_in_text(sentances):
     
     for sentance in sentances:
         for word in sentance:
-            if word not in words:
+            if word not in words.keys():
                 if word != '':
                     words[word] = {}  #Sets the value to be an empty dictionary
                 
@@ -316,16 +321,19 @@ if __name__ == '__main__':
     #Then it builds sematic descriptors
     #then it runs a similarity test using then words found in the test file.
     
-    sentances = get_sentence_lists_from_files("War and Peace.txt")
+    #sentances = get_sentence_lists_from_files("War and Peace.txt")
     
     sentances2 = get_sentence_lists_from_files("Swann's Way.txt")
     
-    sentances.append(sentances2)
+    merge_sentances = sentances2
+        
     f = open('sentances.txt', 'w', encoding="utf-8")
-    f.write(str(sentances))
-    f.close()      
+    f.write(str(merge_sentances))
+    f.close()   
     
-    sem_des = build_semantic_descriptors(sentances)
+    print("Building")
+    
+    sem_des = build_semantic_descriptors(merge_sentances)
     
     f = open('semantic.txt', 'w', encoding="utf-8")
     f.write(str(sem_des))

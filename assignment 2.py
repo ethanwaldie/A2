@@ -319,7 +319,12 @@ if __name__ == '__main__':
     
     sentances = get_sentence_lists_from_files("War and Peace.txt")
     
-    sentances.append("Swann's Way.txt")
+    sentances2 = get_sentence_lists_from_files("Swann's Way.txt")
+    
+    sentances.append(sentances2)
+    f = open('sentances.txt', 'w')
+    f.write(str(sentances))
+    f.close()      
     
     sem_des = build_semantic_descriptors(sentances)
     

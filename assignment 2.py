@@ -279,7 +279,7 @@ def remove(word):
     Arguemnts:
     word -- string
     '''
-    return word.lower().strip("?,.!;:+-/*--")
+    return word.lower().strip("?,.!;:+()-/*--'")
 
 def charactercheck(word):
     '''Return a booliean. True if ".", "!", "?" are in the word and 
@@ -306,7 +306,6 @@ def words_in_text(sentances):
                 if word != '':
                     words[word] = {}  #Sets the value to be an empty dictionary
                 
-    print(words)
     return words
 
     
@@ -324,7 +323,11 @@ if __name__ == '__main__':
     
     sem_des = build_semantic_descriptors(sentances)
     
-    run_similarity_test('testingdata.txt', sem_des)
+    f = open('semantic.txt', 'w')
+    f.write(str(sem_des))
+    f.close()    
+    
+    print(run_similarity_test('testingdata.txt', sem_des))
     
     
     
